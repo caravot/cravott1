@@ -1,7 +1,9 @@
 package com.user.model;
 
+import java.io.Serializable;
+
 // save com.user registration
-public class User {
+public class User implements Serializable {
     // com.user variables
     private String name;
     private String email;
@@ -17,6 +19,13 @@ public class User {
     public User(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public User(String name, String email, String twitter, String description) {
+        this.name = name;
+        this.email = email;
+        this.twitter = twitter;
+        this.description = description;
     }
 
     public String getName() {

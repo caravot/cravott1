@@ -13,14 +13,18 @@ import java.sql.SQLException;
 import java.sql.*;
 
 public class AddUser extends HttpServlet {
-    String addSQL = "INSERT INTO person VALUES(?,?)";
-
     public void doPost(
             HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        User user = new User("Carrie", "carrie.peary@gmail.com");
+        // get parameters from the request
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String twitter = request.getParameter("twitter");
+        String description = request.getParameter("description");
+
+        User user = new User(name, email, twitter, description);
 
         String sql = "INSERT INTO person VALUES (" +
                 "NULL, " +

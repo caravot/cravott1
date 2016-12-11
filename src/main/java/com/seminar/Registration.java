@@ -1,6 +1,6 @@
 package com.seminar;
 
-import com.user.User;
+import com.user.model.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,12 +40,7 @@ public class Registration extends HttpServlet {
                 request.setAttribute("message", message);
             } else {
                 // set com.user variables
-                User user = new User();
-                user.setName(name);
-                user.setEmail(email);
-                user.setEmpStatus(empStatus);
-                user.setCourses(courses);
-                user.setFees(fees);
+                User user = new User(name, email);
 
                 // set redirect url
                 url = "/modules/ten/result.jsp";
@@ -75,9 +70,6 @@ public class Registration extends HttpServlet {
                 String body = "Thanks for your registration to the JHU 1st Annual Software Development Seminar.\n\n"
                         + "You registered with the following details: \n\n"
                         + " - Name: " + user.getName() + "\n"
-                        + " - Employee Status: " + user.getEmpStatus() + "\n"
-                        + " - Courses: " + user.getCoursesToList() + "\n"
-                        + " - Fees: " + user.getFeesToList() + "\n\n"
                         + "If you have any questions please contact us at sw-dev-com.seminar@jhu.edu.";
 
                 System.out.println(

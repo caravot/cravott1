@@ -34,12 +34,13 @@ public class DatabaseSQLite {
         //return rs;
     }
 
-    public static void executeReturnStatement(String sql) throws SQLException, ClassNotFoundException {
+    public static String executeReturnStatement(String sql) throws SQLException, ClassNotFoundException {
         // load the sqlite-JDBC driver using the current class loader
         Class.forName("org.sqlite.JDBC");
 
         // prepared statement to help make SQL statements easier to manage
         Connection connection = null;
+        String str = "";
 
         try {
             // create a database connection and prepare statement
@@ -54,6 +55,8 @@ public class DatabaseSQLite {
                 System.out.println("id = " + rs.getInt("id"));
                 System.out.println("name = " + rs.getString("name"));
                 System.out.println("email = " + rs.getString("email"));
+
+                str += ":" + rs.getString("name");
             }
         } catch (SQLException e) {
             System.out.println("SQLException");
@@ -64,6 +67,8 @@ public class DatabaseSQLite {
                 connection.close();
             }
         }
+
+        return str;
     }
 
     public static void main(String[] args) throws ClassNotFoundException {
