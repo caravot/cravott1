@@ -86,6 +86,11 @@
 
     <build>
         <finalName>recipeery</finalName>
+        <resources>
+            <resource>
+                <directory>db</directory>
+            </resource>
+        </resources>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -101,8 +106,7 @@
                             </goals>
                             <configuration>
                                 <overwrite>true</overwrite>
-                                <outputDirectory>${project.build.directory}/${project
-                                .artifactId}/WEB-INF/db</outputDirectory>
+                                <outputDirectory>${project.build.directory}/${project.artifactId}/WEB-INF/db</outputDirectory>
                                 <resources>
                                     <resource>
                                         <directory>${project.basedir}/db</directory>
