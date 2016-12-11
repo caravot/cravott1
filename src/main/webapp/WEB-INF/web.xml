@@ -9,10 +9,19 @@
         <servlet-name>addRegistrant</servlet-name>
         <servlet-class>seminar.Registration</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>testDB</servlet-name>
+        <servlet-class>com.database.DatabaseTest</servlet-class>
+    </servlet>
 
     <!-- the mapping for the servlets -->
     <servlet-mapping>
         <servlet-name>addRegistrant</servlet-name>
         <url-pattern>/addSeminarRegister</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>testDB</servlet-name>
+        <url-pattern>/testDB</url-pattern>
     </servlet-mapping>
 </web-app>
