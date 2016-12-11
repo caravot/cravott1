@@ -13,6 +13,14 @@
         <servlet-name>testDB</servlet-name>
         <servlet-class>com.database.DatabaseTest</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addUser</servlet-name>
+        <servlet-class>com.user.services.AddUser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>getUsers</servlet-name>
+        <servlet-class>com.user.services.GetUsers</servlet-class>
+    </servlet>
 
     <!-- the mapping for the servlets -->
     <servlet-mapping>
@@ -23,5 +31,14 @@
     <servlet-mapping>
         <servlet-name>testDB</servlet-name>
         <url-pattern>/testDB</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>addUser</servlet-name>
+        <url-pattern>/addUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getUsers</servlet-name>
+        <url-pattern>/getUsers</url-pattern>
     </servlet-mapping>
 </web-app>

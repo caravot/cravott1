@@ -1,9 +1,7 @@
-package com.user;
-
-import java.io.Serializable;
+package com.user.model;
 
 // save com.user registration
-public class User implements Serializable {
+public class User {
     // com.user variables
     private String name;
     private String email;

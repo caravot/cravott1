@@ -6,7 +6,8 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-
+            <a href="/addUser">Add User</a><br/>
+            <a href="/getUsers">Get Users</a>
         </div>
     </div>
 </div>
