@@ -20,8 +20,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <a href="/addUser">Add User</a><br/>
-            <a href="/getUsers">Users</a>
+            +++++<%= userList %>+++++
         </div>
     </div>
 </div>

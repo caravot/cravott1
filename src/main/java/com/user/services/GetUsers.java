@@ -3,6 +3,7 @@ package com.user.services;
 import com.database.DatabaseSQLite;
 import com.user.model.User;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ public class GetUsers extends HttpServlet {
 
         String sql = "select * from person";
         String userList = null;
+        String url = "/users.jsp";
 
         try {
             String str = DatabaseSQLite.executeReturnStatement(sql);
@@ -32,6 +34,10 @@ public class GetUsers extends HttpServlet {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        // forward request and response to the view
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);
     }
 
     public void doGet(
