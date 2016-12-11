@@ -1,134 +1,103 @@
 package com.user;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 // save com.user registration
 public class User implements Serializable {
     // com.user variables
     private String name;
     private String email;
-    private String empStatus;
-    private String[] courses;
-    private String[] fees;
-    private int totalCost;
+    private String location;
+    private String twitter;
+    private String facebook;
+    private String snapchat;
+    private String instagram;
+    private String description;
+    private String favoriteIngredients;
+    private String avatar;
 
-    // default com.user initialization
-    public User() {
-        name = "";
-        email = "";
-        empStatus = "";
-        courses = new String[0];
-        fees = new String[0];
-        totalCost = 0;
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
     }
 
-    // set com.user variable functions
-    public void setName(String n) {
-        name = n;
-    }
-
-    public void setEmail(String e) {
-        email = e;
-    }
-
-    public void setEmpStatus(String es) {
-        empStatus = es;
-    }
-
-    public void setCourses(String[] c) {
-        courses = c;
-
-        // update total cost
-        setTotalCost();
-    }
-
-    public void setFees(String[] f) {
-        fees = f;
-
-        // update total cost
-        setTotalCost();
-    }
-
-    public void setTotalCost(int tc) { totalCost = tc; }
-
-    // get com.user variable functions
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getEmpStatus() {
-        return empStatus;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String[] getCourses() {
-        return courses;
+    public String getLocation() {
+        return location;
     }
 
-    public String[] getFees() {
-        return fees;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public int getTotalCost() { return totalCost; }
-
-    public String getCoursesToList() {
-        return (Arrays.toString(courses)).replace("[", "").replace("]", "").replace(", ", ",");
+    public String getTwitter() {
+        return twitter;
     }
 
-    public String getFeesToList() {
-        return (Arrays.toString(fees)).replace("[", "").replace("]", "").replace(", ", ",");
+    public void setTwitter(String twitter) {
+        this.twitter = twitter;
     }
 
-    // determine if a fee is listed in fees selected by com.user
-    public boolean findFee(String f) {
-        for (String fee : fees) {
-            if (fee.equals(f)) {
-                return true;
-            }
-        }
-
-        return false;
+    public String getFacebook() {
+        return facebook;
     }
 
-    // determine if a fee is listed in courses selected by com.user
-    public boolean findCourse(String c) {
-        for (String course : courses) {
-            if (course.equals(c)) {
-                return true;
-            }
-        }
-
-        return false;
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
     }
 
-    public void setTotalCost() {
-        int courseCost = 0;
-        int total = 0;
+    public String getSnapchat() {
+        return snapchat;
+    }
 
-        if (empStatus.equals("jhu-employee")) {
-            courseCost = 850;
-        } else if (empStatus.equals("jhu-student")) {
-            courseCost = 1000;
-        } else if (empStatus == "other") {
-            courseCost = 1350;
-        }
+    public void setSnapchat(String snapchat) {
+        this.snapchat = snapchat;
+    }
 
-        for (int i = 0; i < courses.length; i++) {
-            total += courseCost;
-        }
+    public String getInstagram() {
+        return instagram;
+    }
 
-        for (int i = 0; i < fees.length; i++) {
-            if (fees[i].equals("hotel")) {
-                total += 185;
-            } else if (fees[i].equals("parking")) {
-                total += 10;
-            }
-        }
+    public void setInstagram(String instagram) {
+        this.instagram = instagram;
+    }
 
-        totalCost = total;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getFavoriteIngredients() {
+        return favoriteIngredients;
+    }
+
+    public void setFavoriteIngredients(String favoriteIngredients) {
+        this.favoriteIngredients = favoriteIngredients;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
