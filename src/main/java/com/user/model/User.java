@@ -4,7 +4,9 @@ import java.io.Serializable;
 
 // save com.user registration
 public class User implements Serializable {
+
     // com.user variables
+    private Integer id;
     private String name;
     private String email;
     private String location;
@@ -26,6 +28,14 @@ public class User implements Serializable {
         this.email = email;
         this.twitter = twitter;
         this.description = description;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

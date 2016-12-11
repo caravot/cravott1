@@ -1,6 +1,9 @@
 package com.database;
 
+import com.user.model.User;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseSQLite {
 
@@ -34,13 +37,13 @@ public class DatabaseSQLite {
         //return rs;
     }
 
-    public static String executeReturnStatement(String sql) throws SQLException, ClassNotFoundException {
+    public static ArrayList<User> executeReturnStatement(String sql) throws SQLException, ClassNotFoundException {
         // load the sqlite-JDBC driver using the current class loader
         Class.forName("org.sqlite.JDBC");
 
         // prepared statement to help make SQL statements easier to manage
         Connection connection = null;
-        String str = "";
+        ArrayList<User> userList = new ArrayList<User>();
 
         try {
             // create a database connection and prepare statement
@@ -56,7 +59,9 @@ public class DatabaseSQLite {
                 System.out.println("name = " + rs.getString("name"));
                 System.out.println("email = " + rs.getString("email"));
 
-                str += ":" + rs.getString("name");
+                User user = new User(rs.getString("name"), rs.getString("email"));
+                user.setId(rs.getInt("id"));
+                userList.add(user);
             }
         } catch (SQLException e) {
             System.out.println("SQLException");
@@ -68,7 +73,7 @@ public class DatabaseSQLite {
             }
         }
 
-        return str;
+        return userList;
     }
 
     public static void main(String[] args) throws ClassNotFoundException {

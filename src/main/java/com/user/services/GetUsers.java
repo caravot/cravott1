@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * Created by carrie on 12/11/16.
@@ -22,13 +23,13 @@ public class GetUsers extends HttpServlet {
             throws ServletException, IOException {
 
         String sql = "select * from person";
-        String userList = null;
+        ArrayList<User> userList;
         String url = "/users.jsp";
 
         try {
-            String str = DatabaseSQLite.executeReturnStatement(sql);
+            userList = DatabaseSQLite.executeReturnStatement(sql);
 
-            request.setAttribute("userList", str);
+            request.setAttribute("userList", userList);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
