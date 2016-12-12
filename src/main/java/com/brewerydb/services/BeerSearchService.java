@@ -5,35 +5,39 @@ import com.brewerydb.models.Beer;
 import com.brewerydb.models.BeerSearchResult;
 import com.brewerydb.models.SingleBeerSearchResult;
 
+import com.Utils;
+
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import okhttp3.*;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 
 public class BeerSearchService {
-    public static final String TAG = BeerSearchService.class.getSimpleName();
-
     public static void main(String[] args) {
-        Beer beer = null;
-
         try {
-            SingleBeerSearchResult singleBeer = getBeerById("oeGSxs");
+            //SingleBeerSearchResult singleBeer = getBeerById("oeGSxs");
 
-            beer = singleBeer.getData();
+            BeerSearchResult result = findBeers("flying");
+
+            ArrayList<Beer> beerList = result.getData();
+            System.out.println("Results: " + result.getTotalResults());
+            Beer beer = beerList.get(1);
             System.out.println(beer.getName());
-            System.out.println(beer.getDescription());
-            System.out.println(beer.getStatus());
+            System.out.println(beer.getOrganic());
+            System.out.println(beer.getAbv());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,7 +64,7 @@ public class BeerSearchService {
         String url = urlBuilder.build().toString();
 
         // Perform search request.
-        InputStream in = performRequest(url);
+        InputStream in = Utils.openConnection(url);
 
         // Set Date format for deserialization 2013-04-17 15:51:31
         DateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -78,25 +82,17 @@ public class BeerSearchService {
         return result;
     }
 
-    private static InputStream performRequest(String url) throws IOException {
-        URL endpoint = new URL(url);
-
-        System.out.println("Printing endpoint:");
-        System.out.println(endpoint);
-
-        URLConnection urlCon = endpoint.openConnection();
-
-        return urlCon.getInputStream();
-    }
-
     public static BeerSearchResult findBeers(String name) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.BEER_SEARCH_BASE_URL).newBuilder();
         urlBuilder.addQueryParameter(Constants.SEARCH_QUERY, name);
         urlBuilder.addQueryParameter("key", Constants.BREWERY_DB_KEY);
+        urlBuilder.addQueryParameter("type", "beer");
+
+        // Build string for url to request
         String url = urlBuilder.build().toString();
 
         // Perform search request.
-        InputStream in = performRequest(url);
+        InputStream in = Utils.openConnection(url);
 
         // Set Date format for deserialization 2013-04-17 15:51:31
         DateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

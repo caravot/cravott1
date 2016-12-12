@@ -32,7 +32,7 @@ public class Recipe {
 	private String name;	
 	private Number numberOfServings;
 	private List<NutritionEstimate> nutritionEstimates;
-	private Number rating;
+	private Double rating;
 	private Source source;
 	private String totalTime;
 	private Number totalTimeInSeconds;
@@ -121,11 +121,11 @@ public class Recipe {
 		this.nutritionEstimates = nutritionEstimates;
 	}
 
-	public Number getRating() {
+	public Double getRating() {
 		return this.rating;
 	}
 
-	public void setRating(Number rating) {
+	public void setRating(Double rating) {
 		this.rating = rating;
 	}
 

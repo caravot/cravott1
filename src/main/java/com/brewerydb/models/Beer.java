@@ -119,12 +119,4 @@ public class Beer {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public Beer getData() {
-        return data;
-    }
-
-    public void setData(Beer data) {
-        this.data = data;
-    }
 }

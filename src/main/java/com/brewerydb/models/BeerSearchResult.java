@@ -27,9 +27,9 @@ import java.util.HashMap;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BeerSearchResult {
 
-	private int currentPage;
-	private int numberOfPages;
-	private int totalResults;
+	private int currentPage = 1;
+	private int numberOfPages = 1;
+	private int totalResults = 0;
 	private ArrayList<Beer> data;
 
 	public int getCurrentPage() {

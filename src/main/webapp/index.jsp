@@ -38,7 +38,7 @@
             </ul>
             <h3>Search</h3>
             <ul>
-                <li><a href="/search">Search</a></li>
+                <li><a href="/search">Beer Search</a></li>
             </ul>
         </div>
     </div>

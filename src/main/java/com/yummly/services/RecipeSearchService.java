@@ -3,23 +3,19 @@ package com.yummly.services;
 import com.yummly.models.*;
 import com.yummly.Constants;
 
+import com.Utils;
+
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import okhttp3.HttpUrl;
-import okhttp3.Response;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 public class RecipeSearchService {
     public static final String TAG = RecipeSearchService.class.getSimpleName();
@@ -44,7 +40,7 @@ public class RecipeSearchService {
         String url = urlBuilder.build().toString();
 
         // Perform search request.
-        InputStream in = performRequest(url);
+        InputStream in = Utils.openConnection(url);
 
         // Parse json.
         JsonFactory factory = new JsonFactory();
@@ -69,7 +65,7 @@ public class RecipeSearchService {
         String url = urlBuilder.build().toString();
 
         // Perform search request.
-        InputStream in = performRequest(url);
+        InputStream in = Utils.openConnection(url);
 
         // Parse json.
         JsonFactory factory = new JsonFactory();
@@ -81,16 +77,5 @@ public class RecipeSearchService {
         in.close();
 
         return result;
-    }
-
-    private static InputStream performRequest(String url) throws IOException {
-        URL endpoint = new URL(url);
-
-        System.out.println("Printing endpoint:");
-        System.out.println(endpoint);
-
-        URLConnection urlCon = endpoint.openConnection();
-
-        return urlCon.getInputStream();
     }
 }
