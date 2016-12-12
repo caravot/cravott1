@@ -32,6 +32,10 @@
             <ul>
                 <li><a href="/beers.jsp">Beers</a></li>
             </ul>
+            <h3>Recipes</h3>
+            <ul>
+                <li><a href="/recipes.jsp">Recipes</a></li>
+            </ul>
         </div>
     </div>
 </div>
