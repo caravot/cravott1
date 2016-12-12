@@ -1,7 +1,9 @@
 <%@include file="../includes/header.jsp" %>
 
 <%@page import="java.util.*"%>
-<%@ page import="com.yummly.models.*" %>
+<%@page import="org.apache.commons.lang3.*"%>
+
+<%@page import="com.yummly.models.*" %>
 
 <jsp:useBean id="GetRecipes" class="com.yummly.services.RecipeSearchService" scope="page" />
 
@@ -40,7 +42,6 @@
                     <td>Name</td>
                     <td>Courses</td>
                     <td>Rating</td>
-                    <td>Ingredients</td>
                     <td>Time</td>
                     <td>Source/Link</td>
                 </tr>
@@ -51,15 +52,13 @@
                     while (iter.hasNext()) {
                         Recipe recipe = iter.next();
                         List<String> courses = recipe.getAttributes().getCourse();
-                        List<String> ingredientLines = recipe.getIngredientLines();
                         Number timeToMake = recipe.getTotalTimeInSeconds();
                         Source source = recipe.getSource();
                 %>
                 <tr>
                     <td><a href="recipe.jsp?id=<%= recipe.getId() %>"><%= recipe.getName() %></a></td>
-                    <td><%= courses %></td>
+                    <td><%= StringUtils.join(courses, "<br/>") %></td>
                     <td><%= recipe.getRating() %></td>
-                    <td><%= ingredientLines %></td>
                     <td><%= (Integer)timeToMake / 60 %> min</td>
                     <td><%= source.getSourceDisplayName() %></td>
                 </tr>
