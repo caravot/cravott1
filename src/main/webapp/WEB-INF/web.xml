@@ -25,6 +25,10 @@
         <servlet-name>updateUser</servlet-name>
         <servlet-class>com.user.services.UpdateUser</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deleteUser</servlet-name>
+        <servlet-class>com.user.services.DeleteUser</servlet-class>
+    </servlet>
 
     <!-- the mapping for the servlets -->
     <servlet-mapping>
@@ -48,5 +52,9 @@
     <servlet-mapping>
         <servlet-name>updateUser</servlet-name>
         <url-pattern>/updateUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteUser</servlet-name>
+        <url-pattern>/deleteUser/*</url-pattern>
     </servlet-mapping>
 </web-app>

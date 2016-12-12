@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-md-12">
             <a href="/addUser.jsp">Add User</a><br/>
-            <a href="/getUsers">Users</a><br/>
+            <a href="/users.jsp">Users</a><br/>
             <a href="/addUser.jsp?id=1">Get User by ID #1</a><br />
             <a href="/addUser.jsp?id=2">Get User by ID #2</a><br />
         </div>

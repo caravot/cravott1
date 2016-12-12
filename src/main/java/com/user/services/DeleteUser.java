@@ -8,26 +8,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.*;
+import java.sql.Statement;
 
-public class AddUser extends HttpServlet {
+public class DeleteUser extends HttpServlet {
     public void doPost(
             HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
 
         // get parameters from the request
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String twitter = request.getParameter("twitter");
-        String description = request.getParameter("description");
-
-        User user = new User(name, email, twitter, description);
+        String id = request.getParameter("id");
         Connection connection = null;
-        String url = "/";
 
         try {
             // create a database connection and prepare statement
@@ -35,12 +29,8 @@ public class AddUser extends HttpServlet {
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
-            String sql = "INSERT INTO person VALUES(";
-            sql += "null, ";
-            sql += "'" + name + "', ";
-            sql += "'" + email + "'";
-            sql += ")";
-
+            String sql = "DELETE FROM person WHERE id = " + id;
+            System.out.println(sql);
             // execute SQL statement
             statement.executeUpdate(sql);
         } catch (SQLException e) {
@@ -51,13 +41,10 @@ public class AddUser extends HttpServlet {
             DatabaseSQLite.closeConnection(connection);
         }
 
-        // get inserted user
-        User u = GetUsers.getUserByName(name);
-        url = "/addUser.jsp?id=" + u.getId();
-
         // forward request and response to the view
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        //RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/users.jsp");
+        //dispatcher.forward(request, response);
+        response.sendRedirect("/users.jsp");
     }
 
     public void doGet(

@@ -3,11 +3,11 @@
 <%@page import="java.util.*"%>
 <%@ page import="com.user.model.User" %>
 
-<%--<jsp:useBean id="tmp" type="com.user.services.GetUsers" scope="request" />--%>
+<jsp:useBean id="GetUsers" class="com.user.services.GetUsers" scope="page" />
 
 <%
     // get attributes from the request
-    ArrayList<User> userList = (ArrayList<User>)request.getAttribute("userList");
+    ArrayList<User> userList = GetUsers.getAllusers();
 
 %>
 
@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <table class="table table-bordered">
                 <thead>
-                    <tr><td>ID</td><td>Name</td><td>Email</td></tr>
+                    <tr><td>ID</td><td>Name</td><td>Email</td><td>&nbsp;</td></tr>
                 </thead>
                 <tbody>
                     <%
@@ -31,6 +31,7 @@
                                 <td><a href="addUser.jsp?id=<%= user.getId() %>"><%= user.getId() %></a></td>
                                 <td><%= user.getName() %></td>
                                 <td><%= user.getEmail() %></td>
+                                <td><a href="/deleteUser/?id=<%= user.getId() %>">Delete</a></td>
                         </tr>
                     <%
                         }

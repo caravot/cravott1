@@ -31,7 +31,7 @@ public class GetUsers extends HttpServlet {
             statement.setQueryTimeout(30);
 
             String sql = "SELECT * FROM person WHERE name = '" + name + "'";
-            System.out.println("SQL: " + sql);
+
             // execute SQL statement
             ResultSet rs = statement.executeQuery(sql);
 
@@ -71,6 +71,37 @@ public class GetUsers extends HttpServlet {
         }
 
         return user;
+    }
+
+    public static ArrayList<User> getAllusers() {
+        String sql = "SELECT * FROM person";
+        ArrayList<User> userList =  new ArrayList<User>();
+        Connection connection = null;
+
+        try {
+            // create a database connection and prepare statement
+            connection = DatabaseSQLite.getConnection();
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);
+
+            System.out.println(sql);
+            // execute SQL statement
+            ResultSet rs  = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                User user = new User(rs.getString("name"), rs.getString("email"));
+                user.setId(rs.getInt("id"));
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            DatabaseSQLite.closeConnection(connection);
+        }
+
+        return userList;
     }
 
     public void doPost(

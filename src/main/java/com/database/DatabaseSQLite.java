@@ -82,9 +82,9 @@ public class DatabaseSQLite {
 
             while (rs.next()) {
                 // read the result set
-                System.out.println("id = " + rs.getInt("id"));
-                System.out.println("name = " + rs.getString("name"));
-                System.out.println("email = " + rs.getString("email"));
+//                System.out.println("id = " + rs.getInt("id"));
+//                System.out.println("name = " + rs.getString("name"));
+//                System.out.println("email = " + rs.getString("email"));
 
                 User user = new User(rs.getString("name"), rs.getString("email"));
                 user.setId(rs.getInt("id"));
