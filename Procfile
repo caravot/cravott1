@@ -1,1 +1,1 @@
-web: java -jar target/*.war
+web: ps:scale web=1
