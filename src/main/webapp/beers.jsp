@@ -19,7 +19,13 @@
         <div class="col-md-12">
             <table class="table table-bordered">
                 <thead>
-                <tr><td>ID</td><td>Name</td><td>Email</td><td>&nbsp;</td></tr>
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>Description</td>
+                    <td>ABV</td>
+                    <td>Food Pairings</td>
+                </tr>
                 </thead>
                 <tbody>
                 <%
@@ -28,8 +34,11 @@
                         Beer beer = iter.next();
                 %>
                 <tr>
-                    <td><a href="addUser.jsp?id=<%= beer.getId() %>"><%= beer.getId() %></a></td>
+                    <td><a href="beer.jsp?id=<%= beer.getId() %>"><%= beer.getId() %></a></td>
                     <td><%= beer.getName() %></td>
+                    <td><%= beer.getDescription() %></td>
+                    <td><%= beer.getAbv() %></td>
+                    <td><%= beer.getFoodPairings() %></td>
                 </tr>
                 <%
                     }

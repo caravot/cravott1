@@ -10,6 +10,14 @@ public class Beer {
     private String name;
     private String nameDisplay;
     private String description;
+    private Double abv;
+    private Boolean isOrganic;
+    private String foodPairings;
+    private String statusDisplay;
+    private Date createDate;
+    private Date updateDate;
+    private String status;
+    private Beer data;
 
     public Beer() {
         super();
@@ -54,5 +62,69 @@ public class Beer {
     @JsonProperty("description")
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Double getAbv() {
+        return abv;
+    }
+
+    public void setAbv(Double abv) {
+        this.abv = abv;
+    }
+
+    public Boolean getOrganic() {
+        return isOrganic;
+    }
+
+    public void setOrganic(Boolean organic) {
+        isOrganic = organic;
+    }
+
+    public String getFoodPairings() {
+        return foodPairings;
+    }
+
+    public void setFoodPairings(String foodPairings) {
+        this.foodPairings = foodPairings;
+    }
+
+    public String getStatusDisplay() {
+        return statusDisplay;
+    }
+
+    public void setStatusDisplay(String statusDisplay) {
+        this.statusDisplay = statusDisplay;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Beer getData() {
+        return data;
+    }
+
+    public void setData(Beer data) {
+        this.data = data;
     }
 }

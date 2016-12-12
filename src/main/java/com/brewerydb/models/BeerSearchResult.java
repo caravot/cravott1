@@ -24,11 +24,8 @@ import com.yummly.models.Recipe;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * A recipe search result containing matches, counts, etc.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SearchResult {
+public class BeerSearchResult {
 
 	private int currentPage;
 	private int numberOfPages;

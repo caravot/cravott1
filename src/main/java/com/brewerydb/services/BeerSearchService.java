@@ -2,7 +2,8 @@ package com.brewerydb.services;
 
 import com.brewerydb.Constants;
 import com.brewerydb.models.Beer;
-import com.brewerydb.models.SearchResult;
+import com.brewerydb.models.BeerSearchResult;
+import com.brewerydb.models.SingleBeerSearchResult;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -14,23 +15,35 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class BeerSearchService {
     public static final String TAG = BeerSearchService.class.getSimpleName();
 
     public static void main(String[] args) {
-        ArrayList<Beer> beerList = searchResults("flying");
+        Beer beer = null;
+
+        try {
+            SingleBeerSearchResult singleBeer = getBeerById("oeGSxs");
+
+            beer = singleBeer.getData();
+            System.out.println(beer.getName());
+            System.out.println(beer.getDescription());
+            System.out.println(beer.getStatus());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static ArrayList<Beer> searchResults(String name) {
         ArrayList<Beer> beerList = null;
 
         try {
-            SearchResult result = findBeers(name);
+            BeerSearchResult result = findBeers(name);
 
             beerList = result.getData();
         } catch (IOException e) {
@@ -38,6 +51,31 @@ public class BeerSearchService {
         }
 
         return beerList;
+    }
+
+    public static SingleBeerSearchResult getBeerById(String id) throws IOException {
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.BEER_ENDPOINT).newBuilder();
+        urlBuilder.addPathSegment(id);
+        urlBuilder.addQueryParameter("key", Constants.BREWERY_DB_KEY);
+        String url = urlBuilder.build().toString();
+
+        // Perform search request.
+        InputStream in = performRequest(url);
+
+        // Set Date format for deserialization 2013-04-17 15:51:31
+        DateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        // Parse json.
+        JsonFactory factory = new JsonFactory();
+        ObjectMapper mapper = new ObjectMapper(factory);
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.setDateFormat(myDateFormat);
+
+        SingleBeerSearchResult result = mapper.readValue(in, SingleBeerSearchResult.class);
+
+        in.close();
+
+        return result;
     }
 
     private static InputStream performRequest(String url) throws IOException {
@@ -51,32 +89,29 @@ public class BeerSearchService {
         return urlCon.getInputStream();
     }
 
-    //public static void findBeers(String name, Callback callback) {
-    public static SearchResult findBeers(String name) throws IOException {
-        OkHttpClient client = new OkHttpClient.Builder().build();
+    public static BeerSearchResult findBeers(String name) throws IOException {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.BEER_SEARCH_BASE_URL).newBuilder();
         urlBuilder.addQueryParameter(Constants.SEARCH_QUERY, name);
         urlBuilder.addQueryParameter("key", Constants.BREWERY_DB_KEY);
         String url = urlBuilder.build().toString();
 
-        Request request = new Request.Builder().url(url).build();
-
         // Perform search request.
         InputStream in = performRequest(url);
+
+        // Set Date format for deserialization 2013-04-17 15:51:31
+        DateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         // Parse json.
         JsonFactory factory = new JsonFactory();
         ObjectMapper mapper = new ObjectMapper(factory);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.setDateFormat(myDateFormat);
 
-        SearchResult result = mapper.readValue(in, SearchResult.class);
+        BeerSearchResult result = mapper.readValue(in, BeerSearchResult.class);
 
         in.close();
 
         return result;
-
-        //Call call = client.newCall(request);
-        //call.enqueue(callback);
     }
 
     public static ArrayList<Beer> processResults(Response response){
