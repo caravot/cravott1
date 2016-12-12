@@ -1,4 +1,4 @@
-<%@include file="header.jsp" %>
+<%@include file="../includes/header.jsp" %>
 
 <%@page import="java.util.*"%>
 <%@ page import="com.user.model.User" %>
@@ -28,7 +28,7 @@
                             User user = iter.next();
                     %>
                         <tr>
-                                <td><a href="addUser.jsp?id=<%= user.getId() %>"><%= user.getId() %></a></td>
+                                <td><a href="../admin/addUser.jsp?id=<%= user.getId() %>"><%= user.getId() %></a></td>
                                 <td><%= user.getName() %></td>
                                 <td><%= user.getEmail() %></td>
                                 <td><a href="/deleteUser/?id=<%= user.getId() %>">Delete</a></td>
@@ -42,4 +42,4 @@
     </div>
 </div>
 
-<%@include file="footer.jsp" %>
+<%@include file="../includes/footer.jsp" %>

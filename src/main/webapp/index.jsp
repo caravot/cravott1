@@ -1,4 +1,4 @@
-<%@include file="header.jsp" %>
+<%@include file="includes/header.jsp" %>
 
 <%@page import="java.util.*"%>
 
@@ -22,22 +22,26 @@
         <div class="col-md-12">
             <h3>User</h3>
             <ul>
-                <li><a href="/addUser.jsp">Add User</a></li>
+                <li><a href="/admin/addUser.jsp">Add User</a></li>
             </ul>
             <h3>Admin</h3>
             <ul>
-                <li><a href="/users.jsp">Users</a></li>
+                <li><a href="/user/users.jsp">Users</a></li>
             </ul>
             <h3>Beer</h3>
             <ul>
-                <li><a href="/beers.jsp">Beers</a></li>
+                <li><a href="/beer/beers.jsp">Beers</a></li>
             </ul>
             <h3>Recipes</h3>
             <ul>
-                <li><a href="/recipes.jsp">Recipes</a></li>
+                <li><a href="/food/recipes.jsp">Recipes</a></li>
+            </ul>
+            <h3>Search</h3>
+            <ul>
+                <li><a href="/search">Search</a></li>
             </ul>
         </div>
     </div>
 </div>
 
-<%@include file="footer.jsp" %>
+<%@include file="includes/footer.jsp" %>

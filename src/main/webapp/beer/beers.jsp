@@ -1,4 +1,4 @@
-<%@include file="header.jsp" %>
+<%@include file="../includes/header.jsp" %>
 
 <%@page import="java.util.*"%>
 <%@ page import="com.brewerydb.models.Beer" %>
@@ -49,4 +49,4 @@
     </div>
 </div>
 
-<%@include file="footer.jsp" %>
+<%@include file="../includes/footer.jsp" %>
