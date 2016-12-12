@@ -8,56 +8,46 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.*;
+import java.sql.Statement;
 
-public class AddUser extends HttpServlet {
+public class UpdateUser extends HttpServlet {
     public void doPost(
             HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
 
         // get parameters from the request
+        String id = request.getParameter("id");
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String twitter = request.getParameter("twitter");
         String description = request.getParameter("description");
 
-        User user = new User(name, email, twitter, description);
-        Connection connection = null;
-        String url = "/";
+        User user = null;
+        String url = "/addUser.jsp?id=" + id;
 
         try {
             // create a database connection and prepare statement
-            connection = DatabaseSQLite.getConnection();
+            Connection connection = DatabaseSQLite.getConnection();
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
-            String sql = "INSERT INTO person VALUES(";
-            sql += "null, ";
-            sql += "'" + name + "', ";
-            sql += "'" + email + "'";
-            sql += ")";
-
-            System.out.println("com.user.services.adduser:sql=" + sql);
-
-            //sql = "INSERT INTO person VALUES(3, 'leo', 'l@gmail.com')";
-
+            String sql = "UPDATE person SET ";
+            sql += "name = '" + name + "', ";
+            sql += "email = '" + email + "' ";
+            sql += "WHERE id = " + id;
+            System.out.println("com.user.services.updateuser:sql=" + sql);
             // execute SQL statement
             statement.executeUpdate(sql);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            DatabaseSQLite.closeConnection(connection);
         }
-        System.out.println("Here");
-        // get inserted user
-        User u = GetUsers.getUserByName(name);
-        url = "/addUser.jsp?id=" + u.getId();
 
         // forward request and response to the view
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

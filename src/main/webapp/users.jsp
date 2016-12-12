@@ -13,19 +13,30 @@
 
 <div class="container">
     <div align="center">
-        <h1>Recipeery</h1>
+        <h1>Get User List</h1>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <%
-                Iterator<User> iter = userList.iterator();
-                while (iter.hasNext()) {
-                    User user = iter.next();
-            %>
-                ID: <%= user.getId() %> | Name: <%= user.getName() %> | Email: <%= user.getEmail() %><br />
-            <%
-                }
-            %>
+            <table class="table table-bordered">
+                <thead>
+                    <tr><td>ID</td><td>Name</td><td>Email</td></tr>
+                </thead>
+                <tbody>
+                    <%
+                        Iterator<User> iter = userList.iterator();
+                        while (iter.hasNext()) {
+                            User user = iter.next();
+                    %>
+                        <tr>
+                                <td><a href="addUser.jsp?id=<%= user.getId() %>"><%= user.getId() %></a></td>
+                                <td><%= user.getName() %></td>
+                                <td><%= user.getEmail() %></td>
+                        </tr>
+                    <%
+                        }
+                    %>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

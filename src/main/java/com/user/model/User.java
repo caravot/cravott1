@@ -18,6 +18,9 @@ public class User implements Serializable {
     private String favoriteIngredients;
     private String avatar;
 
+    public User() {
+    }
+
     public User(String name, String email) {
         this.name = name;
         this.email = email;

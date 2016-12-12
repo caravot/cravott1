@@ -7,6 +7,33 @@ import java.util.ArrayList;
 
 public class DatabaseSQLite {
 
+    public static Connection getConnection() throws SQLException, ClassNotFoundException {
+        // load the sqlite-JDBC driver using the current class loader
+        Class.forName("org.sqlite.JDBC");
+
+        // prepared statement to help make SQL statements easier to manage
+        Connection connection = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite::resource:test.db");
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return connection;
+    }
+
+    public static void closeConnection(Connection connection) {
+        // close database connection
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void executeNoReturnStatement(String sql) throws SQLException, ClassNotFoundException {
         // load the sqlite-JDBC driver using the current class loader
         Class.forName("org.sqlite.JDBC");
