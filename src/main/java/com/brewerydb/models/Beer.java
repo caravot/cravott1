@@ -2,6 +2,8 @@ package com.brewerydb.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -11,12 +13,9 @@ public class Beer {
     private String nameDisplay;
     private String description;
     private Double abv;
-    private Boolean isOrganic;
     private String foodPairings;
-    private String statusDisplay;
     private Date createDate;
     private Date updateDate;
-    private String status;
     private Beer data;
 
     public Beer() {
@@ -72,28 +71,12 @@ public class Beer {
         this.abv = abv;
     }
 
-    public Boolean getOrganic() {
-        return isOrganic;
-    }
-
-    public void setOrganic(Boolean organic) {
-        isOrganic = organic;
-    }
-
     public String getFoodPairings() {
         return foodPairings;
     }
 
     public void setFoodPairings(String foodPairings) {
         this.foodPairings = foodPairings;
-    }
-
-    public String getStatusDisplay() {
-        return statusDisplay;
-    }
-
-    public void setStatusDisplay(String statusDisplay) {
-        this.statusDisplay = statusDisplay;
     }
 
     public Date getCreateDate() {
@@ -112,11 +95,8 @@ public class Beer {
         this.updateDate = updateDate;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public List<String> getFoodPairingsAsList() {
+        List<String> foodList = Arrays.asList(this.foodPairings.split(", "));
+        return foodList;
     }
 }

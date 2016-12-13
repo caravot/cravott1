@@ -36,7 +36,6 @@ public class BeerSearchService {
             System.out.println("Results: " + result.getTotalResults());
             Beer beer = beerList.get(1);
             System.out.println(beer.getName());
-            System.out.println(beer.getOrganic());
             System.out.println(beer.getAbv());
         } catch (IOException e) {
             e.printStackTrace();

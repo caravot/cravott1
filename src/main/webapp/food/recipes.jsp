@@ -59,7 +59,7 @@
                     <td><a href="recipe.jsp?id=<%= recipe.getId() %>"><%= recipe.getName() %></a></td>
                     <td><%= StringUtils.join(courses, "<br/>") %></td>
                     <td><%= recipe.getRating() %></td>
-                    <td><%= (Integer)timeToMake / 60 %> min</td>
+                    <td><%= timeToMake != null ? (Integer)timeToMake / 60 : 0 %> min</td>
                     <td><%= source.getSourceDisplayName() %></td>
                 </tr>
                 <%

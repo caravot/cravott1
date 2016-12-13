@@ -39,10 +39,6 @@
             <ul>
                 <li><a href="/food/recipes.jsp">Recipes</a></li>
             </ul>
-            <h3>Search</h3>
-            <ul>
-                <li><a href="/search">Beer Search</a></li>
-            </ul>
         </div>
     </div>
 </div>
