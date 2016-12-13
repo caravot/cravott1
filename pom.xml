@@ -20,7 +20,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
@@ -110,6 +109,7 @@
     <build>
         <finalName>recipeery</finalName>
 
+        <!-- ensure SQLite database is used as a resource -->
         <resources>
             <resource>
                 <directory>db</directory>
@@ -118,29 +118,6 @@
 
         <pluginManagement>
             <plugins>
-                <!--<plugin>-->
-                    <!--<groupId>org.apache.maven.plugins</groupId>-->
-                    <!--<artifactId>maven-resources-plugin</artifactId>-->
-                    <!--<version>3.0.1</version>-->
-                    <!--<executions>-->
-                        <!--<execution>-->
-                            <!--<id>default-copy-resources</id>-->
-                            <!--<phase>process-resources</phase>-->
-                            <!--<goals>-->
-                                <!--<goal>copy-resources</goal>-->
-                            <!--</goals>-->
-                            <!--<configuration>-->
-                                <!--<overwrite>false</overwrite>-->
-                                <!--<outputDirectory>${project.build.directory}/${project.artifactId}/WEB-INF/</outputDirectory>-->
-                                <!--<resources>-->
-                                    <!--<resource>-->
-                                        <!--<directory>${project.basedir}/db</directory>-->
-                                    <!--</resource>-->
-                                <!--</resources>-->
-                            <!--</configuration>-->
-                        <!--</execution>-->
-                    <!--</executions>-->
-                <!--</plugin>-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -194,6 +171,7 @@
                     </executions>
                 </plugin>
 
+                <!-- deploy to heroku site under https://cravott1.herokuapp.com/ -->
                 <plugin>
                     <groupId>com.heroku.sdk</groupId>
                     <artifactId>heroku-maven-plugin</artifactId>
