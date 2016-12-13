@@ -62,14 +62,12 @@
         <url-pattern>/deleteUser/*</url-pattern>
     </servlet-mapping>
 
+    <!-- secure admin pages -->
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>secure</web-resource-name>
+            <web-resource-name>Secure Admin Pages</web-resource-name>
             <url-pattern>/admin/*</url-pattern>
         </web-resource-collection>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
         <auth-constraint>
             <role-name>admin</role-name>
         </auth-constraint>
@@ -77,6 +75,6 @@
 
     <login-config>
         <auth-method>BASIC</auth-method>
-        <realm-name>Basic Authentication</realm-name>
+        <realm-name>Admin Login</realm-name>
     </login-config>
 </web-app>
