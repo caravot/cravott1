@@ -34,7 +34,7 @@ public class AddUser extends HttpServlet {
         // redirect url
         String url = "/";
 
-        //User user = new User(name, email, twitter, description);
+        // database connection
         Connection connection = null;
 
         // get parameters from the request
@@ -109,8 +109,6 @@ public class AddUser extends HttpServlet {
 
         // store the error message
         request.setAttribute("errorMessage", errorMessage);
-
-        System.out.print("errorMessage: " + errorMessage);
 
         // forward request and response to the view
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

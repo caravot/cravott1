@@ -23,7 +23,7 @@
                     <th>Email</th>
                     <th>Twitter</th>
                     <th>Description</th>
-                    <th>Delete</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,7 +52,10 @@
                     <td>
                         <%= user.getDescription() %>
                     </td>
-                    <td><a href="/deleteUser/?id=<%= user.getId() %>">Delete</a></td>
+                    <td>
+                        <a href="/admin/profile.jsp?id=<%= user.getId() %>" title="Update User"><i class="fa fa-pencil"></i></a>
+                        <a href="/deleteUser/?id=<%= user.getId() %>" title="Delete User" class="delete-user"><i class="fa fa-trash"></i></a>
+                    </td>
                 </tr>
                 <%
                     }

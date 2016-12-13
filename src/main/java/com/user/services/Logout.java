@@ -23,8 +23,9 @@ public class Logout extends HttpServlet {
         // remove user session object
         request.getSession().removeAttribute("user");
 
-        // forward request and response to the view
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/");
-        dispatcher.forward(request, response);
+        request.getSession().invalidate();
+
+        // redirect to the view
+        response.sendRedirect("/");
     }
 }

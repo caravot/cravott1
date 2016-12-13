@@ -32,6 +32,11 @@ $(document).ready(function() {
         return true;
     });
 
+    // confirm the admin wants to delete the user
+    $('a.delete-user').click(function(event) {
+        return confirm("Are you sure you want to delete this user?");
+    });
+
     // validate that the user login is correct
     $('form.user-login').submit(function(event) {
         if ($('input[name=name]').val().length <= 0) {

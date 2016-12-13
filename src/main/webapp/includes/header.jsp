@@ -47,7 +47,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/user/users.jsp"><i class="fa fa-users" aria-hidden="true"></i> User List</a></li>
-                <li><a href="/admin/users.jsp"><i class="fa fa-lock" aria-hidden="true"></i> Admin</a></li>
+                <li><a href="/admin/users.jsp"><i class="fa fa-users" aria-hidden="true"></i> Admin</a></li>
                 <li class="dropdown">
                     <%-- user is logged in --%>
                     <% if (loggedIn) { %>
@@ -58,8 +58,8 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a href="/user/profile.jsp"><i class="fa fa-id-card" aria-hidden="true"></i> Profile</a></li>
                             <li><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
-                            <li><a href="/user/profile.jsp"><i class="fa fa-id-card" aria-hidden="true"></i>Profile</a></li>
                         </ul>
                     <%-- user is not logged in --%>
                     <% } %>
@@ -70,8 +70,8 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="/user/login.jsp"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
                             <li><a href="/user/signup.jsp"><i class="fa fa-user-plus" aria-hidden="true"></i> Signup</a></li>
+                            <li><a href="/user/login.jsp"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
                         </ul>
                     <% } %>
                 </li>

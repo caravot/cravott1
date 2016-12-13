@@ -64,16 +64,16 @@ public class UpdateUser extends HttpServlet {
             // get inserted user
             user = GetUsers.getUserById(id);
 
-            // redirect back to teh profile page if that's where they came from
+            // redirect back to the profile page if that's where they came from
             if ("profile".equals(page)) {
                 url = "/user/profile.jsp";
 
                 // update session variable
                 request.getSession().setAttribute("user", user);
             }
-            // if they didn't update form the user page redirect to admin update page
+            // if they didn't update form the user page redirect to admin user list
             else {
-                url = "/admin/addUser.jsp";
+                url = "/admin/users.jsp";
             }
 
             // forward request and response to the view
