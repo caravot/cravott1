@@ -8,9 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -83,9 +81,18 @@ public class GetUsers extends HttpServlet {
         return user;
     }
 
+    /**
+     * Get All Users from the database
+     * @return ArrayList<User>
+     */
     public static ArrayList<User> getAllusers() {
+        // query to perform
         String sql = "SELECT * FROM person";
+
+        // return variable
         ArrayList<User> userList =  new ArrayList<User>();
+
+        // database connection
         Connection connection = null;
 
         try {
@@ -94,10 +101,10 @@ public class GetUsers extends HttpServlet {
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
-            System.out.println(sql);
             // execute SQL statement
             ResultSet rs  = statement.executeQuery(sql);
 
+            // loop over return
             while (rs.next()) {
                 User user = new User(
                         rs.getString("name"),
@@ -105,7 +112,11 @@ public class GetUsers extends HttpServlet {
                         rs.getString("twitter"),
                         rs.getString("description")
                 );
+
+                // manually add the userid
                 user.setId(rs.getInt("id"));
+
+                // add user to result set
                 userList.add(user);
             }
         } catch (SQLException e) {
@@ -119,36 +130,35 @@ public class GetUsers extends HttpServlet {
         return userList;
     }
 
+    /**
+     * Process post to GetUsers servlet
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(
             HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
+        // get all users
+        ArrayList<User> userList = GetUsers.getAllusers();
 
-        // get path that we came from
-        String pathInfo = request.getServletPath();
-
-        // redirect url
-        String url = "/user/users.jsp";
-
-        // get list of all users
-            String sql = "select * from person";
-            ArrayList<User> userList;
-
-            try {
-                userList = DatabaseSQLite.executeReturnStatement(sql);
-
-                request.setAttribute("userList", userList);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+        // append userlist to request
+        request.setAttribute("userList", userList);
 
         // forward request and response to the view
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/user/users.jsp");
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Forward all HTTP GET to POST method
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doGet(
             HttpServletRequest request,
             HttpServletResponse response)

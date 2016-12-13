@@ -8,47 +8,46 @@
 <%
     // get attributes from the request
     ArrayList<User> userList = GetUsers.getAllusers();
-
 %>
 
 <div class="container">
-    <div align="center">
-        <h1>Get User List</h1>
+    <div>
+        <h1>User List</h1>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered">
+            <table class="table table-striped table-hover table-condensed">
                 <thead>
-                <tr>
-                    <td>Name</td>
-                    <td>Email</td>
-                    <td>Twitter</td>
-                    <td>Description</td>
-                </tr>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Twitter</th>
+                        <th>Description</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <%
-                    Iterator<User> iter = userList.iterator();
-                    while (iter.hasNext()) {
-                        User user = iter.next();
-                %>
-                <tr>
-                    <td>
-                        <%= user.getName() %>
-                    </td>
-                    <td>
-                        <%= user.getEmail() %>
-                    </td>
-                    <td>
-                        <%= user.getTwitter() %>
-                    </td>
-                    <td>
-                        <%= user.getDescription() %>
-                    </td>
-                </tr>
-                <%
-                    }
-                %>
+                    <%
+                        Iterator<User> iter = userList.iterator();
+                        while (iter.hasNext()) {
+                            User user = iter.next();
+                    %>
+                    <tr>
+                        <td>
+                            <%= user.getName() %>
+                        </td>
+                        <td>
+                            <a href="<%= user.getEmail() %>" title="Send Email"><%= user.getEmail() %></a>
+                        </td>
+                        <td>
+                            <a href="https://twitter.com/<%= user.getTwitter() %>" target="_blank" title="Twitter Account">@<%= user.getTwitter() %></a>
+                        </td>
+                        <td>
+                            <%= user.getDescription() %>
+                        </td>
+                    </tr>
+                    <%
+                        }
+                    %>
                 </tbody>
             </table>
         </div>
