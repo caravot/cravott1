@@ -9,7 +9,9 @@
 
 <%
     // get request parameter if available
-    String q = "";
+    String q = request.getParameter("q");
+
+    // Initialize variables for later use
     String showAll = "false";
     BeerSearchResult result = null;
     ArrayList<Beer> beerList = new ArrayList<Beer>();
@@ -18,28 +20,30 @@
     Integer currentPage = 1;
     Integer totalPages = 1;
     Integer totalResult = 0;
-    Integer totalVisibleResults = 0;
 
     if (request.getParameter("showAll") != null) {
         showAll = request.getParameter("showAll");
     }
 
     // get attributes from the request
-    if (request.getParameter("q") != null) {
-        q = request.getParameter("q");
+    if (q != null && !q.equals("")) {
+        // get beer results
         result = GetBeers.findBeers(q);
 
+        // save result variables for ease of access
         beerList = result.getData();
         currentPage = result.getCurrentPage();
         totalPages = result.getNumberOfPages();
         totalResult = result.getTotalResults();
 
+        // determine if we can paginate forward
         if (currentPage + 1 >= totalPages) {
             nextPage = currentPage;
         } else {
             nextPage = currentPage + 1;
         }
 
+        // determine if we can paginate back
         if (currentPage - 1 <= 0) {
             previousPage = currentPage;
         } else {
@@ -52,47 +56,67 @@
     <div>
         <h1>Search Beers</h1>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <form method="get">
-                <label for="q">Search Term: <input type="text" name="q" id="q" value="<%= q %>"></label>
+
+    <form action="" method="get">
+        <div class="row">
+            <div class="col-md-6">
+                <label class="sr-only" for="q">Search Term</label>
+                <input type="text" class="form-control" name="q" id="q" placeholder="Search Term" value="<%= q %>">
+                <span class="help-block">By default only beers with food pairings listed are shown.</span>
+            </div>
+            <div class="col-md-6">
                 <label>
-                    Show All Beers even without Food Pairings?
                     <input type="checkbox" name="showAll" id="showAll" value="true"
                         <%=("true".equals(showAll) ? "checked": "")%>>
+                    Show All Beers
                 </label>
 
-                <button type="submit" class="btn btn-default btn-sm">Submit</button>
-            </form>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
         </div>
-    </div>
+    </form>
 
     <%-- do not continue if no search results to show --%>
     <%
-        if (q != "" && totalResult == 0) {
+        if (q == null || q.equals("") || q.length() == 0) {
     %>
-    <div class="row">
-        <div class="col-md-12">
-            <h3>No Results Found</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Error</h2>
+            </div>
+            <div class="col-md-12">
+                <p>You must provide a search term</p>
+            </div>
         </div>
-    </div>
+    <%-- do not continue if no query string passed in --%>
+    <%
+        } else if (q != "" && totalResult == 0) {
+    %>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Results</h2>
+            </div>
+            <div class="col-md-12">
+                <h3>No Results Found</h3>
+            </div>
+        </div>
     <%
         } else if (q != "") {
     %>
         <div class="row">
             <div class="col-md-12">
-                <h3>Results</h3>
+                <h2>Results</h2>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-bordered">
+                <table class="table table-striped table-hover table-condensed">
                     <thead>
                         <tr>
-                            <th width="45">Name</th>
-                            <th width="20">Description</th>
-                            <th width="5">ABV</th>
-                            <th width="20">Food Pairings</th>
+                            <th width="125">Name</th>
+                            <th>Description</th>
+                            <th>ABV</th>
+                            <th width="250">Food Pairings</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,7 +127,6 @@
                                 String foodPairings = beer.getFoodPairings();
 
                                 if (showAll == "true" || (beer.getFoodPairings() != null)) {
-                                    totalVisibleResults++;
                         %>
                         <tr>
                             <td><a href="beer.jsp?id=<%= beer.getId() %>"><%= beer.getName() %></a></td>

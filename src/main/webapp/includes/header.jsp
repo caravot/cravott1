@@ -2,7 +2,7 @@
 <%@ page import="com.user.model.User" %>
 
 <%
-    // get attributes from the request
+    // get attributes from the request for sessionUser
     User sessionUser = (User)request.getSession().getAttribute("user");
     boolean loggedIn = false;
 
@@ -19,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <%--<link rel="SHORTCUT ICON" type="image/x-icon" href="/cravott1_assignment5/assets/images/favicon.gif">--%>
+    <link rel="SHORTCUT ICON" type="image/x-icon" href="/assets/images/favicon.gif">
 
     <title>Recipeery</title>
 
@@ -42,16 +42,34 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/user/users.jsp">Users</a></li>
-                <% if (loggedIn) { %>
-                    <li><a href="/user/profile.jsp">Profile</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                <% } %>
-                <% if (!loggedIn) { %>
-                    <li><a href="/user/signup.jsp">Signup</a></li>
-                    <li><a href="/user/login.jsp">Login</a></li>
-                <% } %>
-                <li><a href="/">Home</a></li>
+                <li><a href="/user/users.jsp">User List</a></li>
+                <li class="dropdown">
+                    <%-- user is logged in --%>
+                    <% if (loggedIn) { %>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">
+                            <img src="http://lorempixel.com/25/25/abstract" class="img-circle" alt="User: Icon">
+                            <%= sessionUser.getName() %>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/logout">Logout</a></li>
+                            <li><a href="/user/profile.jsp">Profile</a></li>
+                        </ul>
+                    <%-- user is not logged in --%>
+                    <% } %>
+                    <% if (!loggedIn) { %>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">
+                            User
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/user/login.jsp">Login</a></li>
+                            <li><a href="/user/signup.jsp">Signup</a></li>
+                        </ul>
+                    <% } %>
+                </li>
             </ul>
         </div>
     </div>

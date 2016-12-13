@@ -17,27 +17,25 @@
 package com.brewerydb.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.yummly.models.Attribution;
-import com.yummly.models.Criteria;
-import com.yummly.models.Recipe;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BeerSearchResult {
-
 	private int currentPage = 1;
 	private int numberOfPages = 1;
 	private int totalResults = 0;
 	private ArrayList<Beer> data;
+
+	public BeerSearchResult() {
+		super();
+	}
 
 	public int getCurrentPage() {
 		return currentPage;
 	}
 
 	public void setCurrentPage(int currentPage) {
-        System.out.println("currentPage: " + currentPage);
 		this.currentPage = currentPage;
 	}
 
@@ -46,7 +44,6 @@ public class BeerSearchResult {
 	}
 
 	public void setNumberOfPages(int numberOfPages) {
-        System.out.println("numberOfPages: " + numberOfPages);
 		this.numberOfPages = numberOfPages;
 	}
 
@@ -55,7 +52,6 @@ public class BeerSearchResult {
 	}
 
 	public void setTotalResults(int totalResults) {
-        System.out.println("totalResults: " + totalResults);
 		this.totalResults = totalResults;
 	}
 

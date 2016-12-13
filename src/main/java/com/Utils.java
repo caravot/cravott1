@@ -35,6 +35,11 @@ public class Utils {
         ArrayList<String> result = createRecipeLinksFromBeer(beer);
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     */
     public static boolean validInputString(String s) {
         boolean result = true;
 
@@ -48,8 +53,7 @@ public class Utils {
     public static InputStream openConnection(String url) throws IOException {
         URL endpoint = new URL(url);
 
-        System.out.println("Printing endpoint:");
-        System.out.println(endpoint);
+        System.out.println("Printing openConnection->endpoint: " + endpoint);
 
         URLConnection urlCon = endpoint.openConnection();
 

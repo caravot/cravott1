@@ -12,10 +12,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import okhttp3.*;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -25,6 +21,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class BeerSearchService {
+    /**
+     * Main class primarily used for testing
+     * @param args
+     */
     public static void main(String[] args) {
         try {
             //SingleBeerSearchResult singleBeer = getBeerById("oeGSxs");
@@ -41,46 +41,60 @@ public class BeerSearchService {
         }
     }
 
-    public static ArrayList<Beer> searchResults(String name) {
-        ArrayList<Beer> beerList = null;
-
-        try {
-            BeerSearchResult result = findBeers(name);
-
-            beerList = result.getData();
-        } catch (IOException e) {
-            e.printStackTrace();
+    /**
+     * Search for a single beer
+     * @param id
+     * @return SingleBeerResult
+     * @throws IOException
+     */
+    public static SingleBeerSearchResult getBeerById(String id) throws IOException {
+        // error checking; ensure name is valid; return empty class
+        if (!Utils.validInputString(id)) {
+            return new SingleBeerSearchResult();
         }
 
-        return beerList;
-    }
-
-    public static SingleBeerSearchResult getBeerById(String id) throws IOException {
+        // build url to API
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Utils.BEER_ENDPOINT).newBuilder();
         urlBuilder.addPathSegment(id);
         urlBuilder.addQueryParameter("key", Utils.BREWERY_DB_KEY);
+
+        // Build string for url to request
         String url = urlBuilder.build().toString();
 
         // Perform search request.
         InputStream in = Utils.openConnection(url);
 
-        // Set Date format for deserialization 2013-04-17 15:51:31
+        // Set Date format for deserialization (ex. 2013-04-17 15:51:31)
         DateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        // Parse json.
+        // Create JSON result parser
         JsonFactory factory = new JsonFactory();
         ObjectMapper mapper = new ObjectMapper(factory);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.setDateFormat(myDateFormat);
 
+        // Parse results into class
         SingleBeerSearchResult result = mapper.readValue(in, SingleBeerSearchResult.class);
 
+        // close open HTTP connection
         in.close();
 
         return result;
     }
 
+    /**
+     * findBeers
+     * @param name
+     * @return BeerSearchResult
+     * @throws IOException
+     */
     public static BeerSearchResult findBeers(String name) throws IOException {
+        // error checking; ensure name is valid; return empty class
+        if (!Utils.validInputString(name)) {
+            return new BeerSearchResult();
+        }
+
+        // build url to API
         HttpUrl.Builder urlBuilder = HttpUrl.parse(Utils.BEER_SEARCH_BASE_URL).newBuilder();
         urlBuilder.addQueryParameter(Utils.SEARCH_QUERY, name);
         urlBuilder.addQueryParameter("key", Utils.BREWERY_DB_KEY);
@@ -92,46 +106,21 @@ public class BeerSearchService {
         // Perform search request.
         InputStream in = Utils.openConnection(url);
 
-        // Set Date format for deserialization 2013-04-17 15:51:31
+        // Set Date format for deserialization (ex. 2013-04-17 15:51:31)
         DateFormat myDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        // Parse json.
+        // Create JSON result parser
         JsonFactory factory = new JsonFactory();
         ObjectMapper mapper = new ObjectMapper(factory);
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.setDateFormat(myDateFormat);
 
+        // Parse results into class
         BeerSearchResult result = mapper.readValue(in, BeerSearchResult.class);
 
+        // close open HTTP connection
         in.close();
 
         return result;
-    }
-
-    public static ArrayList<Beer> processResults(Response response){
-        ArrayList<Beer> beers = new ArrayList<>();
-
-        try {
-            String jsonData = response.body().string();
-
-            if(response.isSuccessful()) {
-                JSONObject brewerydbJSON = new JSONObject(jsonData);
-                JSONArray beersJSON = brewerydbJSON.getJSONArray("data");
-                for(int i = 0; i < beersJSON.length(); i++){
-                    JSONObject beerJSON = beersJSON.getJSONObject(i);
-
-                    String name = beerJSON.getString("name");
-                    String id = beerJSON.getString("id");
-
-                    Beer beer = new Beer(name, id);
-                    beers.add(beer);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return beers;
     }
 }

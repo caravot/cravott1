@@ -2,7 +2,6 @@ package com.brewerydb.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +15,6 @@ public class Beer {
     private String foodPairings;
     private Date createDate;
     private Date updateDate;
-    private Beer data;
 
     public Beer() {
         super();

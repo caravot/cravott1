@@ -26,6 +26,10 @@ public class SingleBeerSearchResult {
 	private String status;
 	private Beer data;
 
+	public SingleBeerSearchResult() {
+		super();
+	}
+
 	public String getStatus() {
 		return status;
 	}
