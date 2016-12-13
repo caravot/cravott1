@@ -27,8 +27,12 @@ public class UpdateUser extends HttpServlet {
         String twitter = request.getParameter("twitter");
         String description = request.getParameter("description");
 
+        // get the variable of where we came from so we redirect correctly
+        String page = request.getParameter("page");
+        System.out.println("Page: " + page);
+
         User user = null;
-        String url = "/addUser.jsp?id=" + id;
+        String url = "/";
 
         try {
             // create a database connection and prepare statement
@@ -38,20 +42,35 @@ public class UpdateUser extends HttpServlet {
 
             String sql = "UPDATE person SET ";
             sql += "name = '" + name + "', ";
+            sql += "twitter = '" + twitter + "', ";
+            sql += "description = '" + description + "', ";
             sql += "email = '" + email + "' ";
             sql += "WHERE id = " + id;
             System.out.println("com.user.services.updateuser:sql=" + sql);
             // execute SQL statement
             statement.executeUpdate(sql);
+
+            // get inserted user
+            user = GetUsers.getUserById(id);
+
+            if ("profile".equals(page)) {
+                url = "/user/profile.jsp";
+
+                // update session variable
+                System.out.println(user.getName());
+                request.getSession().setAttribute("user", user);
+            } else {
+                url = "/admin/addUser.jsp";
+            }
+
+            // forward request and response to the view
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+            dispatcher.forward(request, response);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        // forward request and response to the view
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
     }
 
     public void doGet(

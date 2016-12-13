@@ -36,7 +36,12 @@ public class GetUsers extends HttpServlet {
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                user = new User(rs.getString("name"), rs.getString("email"));
+                user = new User(
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("twitter"),
+                        rs.getString("description")
+                );
                 user.setId(rs.getInt("id"));
             }
         } catch (SQLException e) {
@@ -61,7 +66,12 @@ public class GetUsers extends HttpServlet {
             ResultSet rs = statement.executeQuery("SELECT * FROM person WHERE id = " + id);
 
             while (rs.next()) {
-                user = new User(rs.getString("name"), rs.getString("email"));
+                user = new User(
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("twitter"),
+                        rs.getString("description")
+                );
                 user.setId(rs.getInt("id"));
             }
         } catch (SQLException e) {
@@ -89,7 +99,12 @@ public class GetUsers extends HttpServlet {
             ResultSet rs  = statement.executeQuery(sql);
 
             while (rs.next()) {
-                User user = new User(rs.getString("name"), rs.getString("email"));
+                User user = new User(
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("twitter"),
+                        rs.getString("description")
+                );
                 user.setId(rs.getInt("id"));
                 userList.add(user);
             }
@@ -109,19 +124,25 @@ public class GetUsers extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        String sql = "select * from person";
-        ArrayList<User> userList;
-        String url = "/users.jsp";
+        // get path that we came from
+        String pathInfo = request.getServletPath();
 
-        try {
-            userList = DatabaseSQLite.executeReturnStatement(sql);
+        // redirect url
+        String url = "/user/users.jsp";
 
-            request.setAttribute("userList", userList);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        // get list of all users
+            String sql = "select * from person";
+            ArrayList<User> userList;
+
+            try {
+                userList = DatabaseSQLite.executeReturnStatement(sql);
+
+                request.setAttribute("userList", userList);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
 
         // forward request and response to the view
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

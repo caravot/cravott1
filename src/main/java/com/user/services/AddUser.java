@@ -25,9 +25,11 @@ public class AddUser extends HttpServlet {
         String twitter = request.getParameter("twitter");
         String description = request.getParameter("description");
 
-        User user = new User(name, email, twitter, description);
+        //User user = new User(name, email, twitter, description);
         Connection connection = null;
-        String url = "/";
+
+        // redirect url
+        String url = "/user/profile.jsp";
 
         try {
             // create a database connection and prepare statement
@@ -35,10 +37,13 @@ public class AddUser extends HttpServlet {
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
+            // create insert statement for database
             String sql = "INSERT INTO person VALUES(";
             sql += "null, ";
             sql += "'" + name + "', ";
-            sql += "'" + email + "'";
+            sql += "'" + email + "', ";
+            sql += "'" + twitter + "', ";
+            sql += "'" + description + "' ";
             sql += ")";
 
             // execute SQL statement
@@ -52,8 +57,10 @@ public class AddUser extends HttpServlet {
         }
 
         // get inserted user
-        User u = GetUsers.getUserByName(name);
-        url = "/addUser.jsp?id=" + u.getId();
+        User user = GetUsers.getUserByName(name);
+
+        // store the user object in the session
+        request.getSession().setAttribute("user", user);
 
         // forward request and response to the view
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

@@ -24,6 +24,7 @@
                     <td>Email</td>
                     <td>Twitter</td>
                     <td>Description</td>
+                    <td>&nbsp;</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,7 +35,8 @@
                 %>
                 <tr>
                     <td>
-                        <%= user.getName() %>
+                        <a href="../admin/addUser.jsp?id=<%= user.getId() %>"><%= user.getName() %>
+                        </a>
                     </td>
                     <td>
                         <%= user.getEmail() %>
@@ -45,6 +47,7 @@
                     <td>
                         <%= user.getDescription() %>
                     </td>
+                    <td><a href="/deleteUser/?id=<%= user.getId() %>">Delete</a></td>
                 </tr>
                 <%
                     }
