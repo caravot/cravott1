@@ -3,7 +3,7 @@
 <%@ page import="com.user.model.User" %>
 
 <div class="container">
-    <div align="center">
+    <div>
         <h1>Signup</h1>
     </div>
     <%

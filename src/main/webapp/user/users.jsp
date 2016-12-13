@@ -33,13 +33,20 @@
                     %>
                     <tr>
                         <td>
+                            <i class="fa fa-user" aria-hidden="true"></i>
                             <%= user.getName() %>
                         </td>
                         <td>
-                            <a href="<%= user.getEmail() %>" title="Send Email"><%= user.getEmail() %></a>
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <a href="<%= user.getEmail() %>" title="Send Email">
+                                <%= user.getEmail() %>
+                            </a>
                         </td>
                         <td>
-                            <a href="https://twitter.com/<%= user.getTwitter() %>" target="_blank" title="Twitter Account">@<%= user.getTwitter() %></a>
+                            <i class="fa fa-twitter" aria-hidden="true"></i>
+                            <a href="https://twitter.com/<%= user.getTwitter() %>" target="_blank" title="Twitter Account">
+                                <%= user.getTwitter() %>
+                            </a>
                         </td>
                         <td>
                             <%= user.getDescription() %>

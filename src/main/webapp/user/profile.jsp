@@ -7,7 +7,7 @@
     User user = (User)session.getAttribute("user");
 %>
 <div class="container">
-    <div align="center">
+    <div>
         <h1>Profile for <%= user.getName() %></h1>
     </div>
     <div class="row">

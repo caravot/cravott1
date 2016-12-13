@@ -1,7 +1,7 @@
 <%@include file="../includes/header.jsp" %>
 
 <div class="container">
-    <div align="center">
+    <div>
         <h1>Login</h1>
     </div>
     <%
