@@ -1,7 +1,6 @@
 package com.yummly.services;
 
 import com.yummly.models.*;
-import com.yummly.Constants;
 
 import com.Utils;
 
@@ -13,9 +12,6 @@ import okhttp3.HttpUrl;
 
 import java.io.IOException;
 import java.io.InputStream;
-
-import java.net.URL;
-import java.net.URLConnection;
 
 public class RecipeSearchService {
     public static final String TAG = RecipeSearchService.class.getSimpleName();
@@ -32,11 +28,11 @@ public class RecipeSearchService {
     }
 
     public static Recipe getRecipeById(String id) throws IOException {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YUMMLY_API_ENDPOINT).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Utils.YUMMLY_API_ENDPOINT).newBuilder();
         urlBuilder.addPathSegment("recipe");
         urlBuilder.addPathSegment(id);
-        urlBuilder.addQueryParameter("_app_id", Constants.YUMMLY_ID);
-        urlBuilder.addQueryParameter("_app_key", Constants.YUMMLY_KEY);
+        urlBuilder.addQueryParameter("_app_id", Utils.YUMMLY_ID);
+        urlBuilder.addQueryParameter("_app_key", Utils.YUMMLY_KEY);
         String url = urlBuilder.build().toString();
 
         // Perform search request.
@@ -55,11 +51,11 @@ public class RecipeSearchService {
     }
 
     public static SearchResult findRecipes(String name) throws IOException {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YUMMLY_API_ENDPOINT).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Utils.YUMMLY_API_ENDPOINT).newBuilder();
         urlBuilder.addPathSegment("recipes");
-        urlBuilder.addQueryParameter("_app_id", Constants.YUMMLY_ID);
-        urlBuilder.addQueryParameter("_app_key", Constants.YUMMLY_KEY);
-        urlBuilder.addQueryParameter("maxResult", Constants.YUMMLY_MAX_RESULTS);
+        urlBuilder.addQueryParameter("_app_id", Utils.YUMMLY_ID);
+        urlBuilder.addQueryParameter("_app_key", Utils.YUMMLY_KEY);
+        urlBuilder.addQueryParameter("maxResult", Utils.YUMMLY_MAX_RESULTS);
         urlBuilder.addEncodedQueryParameter("q", name);
 
         String url = urlBuilder.build().toString();

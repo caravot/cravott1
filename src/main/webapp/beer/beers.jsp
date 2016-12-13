@@ -1,6 +1,7 @@
 <%@include file="../includes/header.jsp" %>
 
 <%@page import="java.util.*"%>
+
 <%@ page import="com.brewerydb.models.Beer" %>
 <%@ page import="com.brewerydb.models.BeerSearchResult" %>
 

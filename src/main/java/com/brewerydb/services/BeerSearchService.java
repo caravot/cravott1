@@ -1,6 +1,5 @@
 package com.brewerydb.services;
 
-import com.brewerydb.Constants;
 import com.brewerydb.models.Beer;
 import com.brewerydb.models.BeerSearchResult;
 import com.brewerydb.models.SingleBeerSearchResult;
@@ -57,9 +56,9 @@ public class BeerSearchService {
     }
 
     public static SingleBeerSearchResult getBeerById(String id) throws IOException {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.BEER_ENDPOINT).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Utils.BEER_ENDPOINT).newBuilder();
         urlBuilder.addPathSegment(id);
-        urlBuilder.addQueryParameter("key", Constants.BREWERY_DB_KEY);
+        urlBuilder.addQueryParameter("key", Utils.BREWERY_DB_KEY);
         String url = urlBuilder.build().toString();
 
         // Perform search request.
@@ -82,9 +81,9 @@ public class BeerSearchService {
     }
 
     public static BeerSearchResult findBeers(String name) throws IOException {
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.BEER_SEARCH_BASE_URL).newBuilder();
-        urlBuilder.addQueryParameter(Constants.SEARCH_QUERY, name);
-        urlBuilder.addQueryParameter("key", Constants.BREWERY_DB_KEY);
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Utils.BEER_SEARCH_BASE_URL).newBuilder();
+        urlBuilder.addQueryParameter(Utils.SEARCH_QUERY, name);
+        urlBuilder.addQueryParameter("key", Utils.BREWERY_DB_KEY);
         urlBuilder.addQueryParameter("type", "beer");
 
         // Build string for url to request
