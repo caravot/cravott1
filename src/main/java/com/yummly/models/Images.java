@@ -23,6 +23,12 @@ public class Images {
 	private String hostedMediumUrl;
 	private String hostedSmallUrl;
 
+	public Images() {
+		this.hostedSmallUrl = "";
+		this.hostedMediumUrl = "";
+		this.hostedLargeUrl = "";
+	}
+
 	public String getHostedLargeUrl() {
 		return this.hostedLargeUrl;
 	}
