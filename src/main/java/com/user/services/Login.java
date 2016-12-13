@@ -1,7 +1,6 @@
 package com.user.services;
 
 import com.Utils;
-import com.database.DatabaseSQLite;
 import com.user.model.User;
 
 import javax.servlet.RequestDispatcher;
@@ -10,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 public class Login extends HttpServlet {
     public void doPost(
@@ -23,6 +19,7 @@ public class Login extends HttpServlet {
         // get parameters from the request
         String name = request.getParameter("name");
 
+        // holding variables for later use
         User user = null;
         String url = "/";
 
