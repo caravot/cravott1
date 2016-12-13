@@ -3,20 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-
+    <!-- weclome file list -->
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
     <!-- the definitions for the servlets -->
-    <servlet>
-        <servlet-name>addRegistrant</servlet-name>
-        <servlet-class>com.seminar.Registration</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>testDB</servlet-name>
-        <servlet-class>com.database.DatabaseTest</servlet-class>
-    </servlet>
     <servlet>
         <servlet-name>addUser</servlet-name>
         <servlet-class>com.user.services.AddUser</servlet-class>
@@ -43,16 +35,6 @@
     </servlet>
 
     <!-- the mapping for the servlets -->
-    <servlet-mapping>
-        <servlet-name>addRegistrant</servlet-name>
-        <url-pattern>/addSeminarRegister</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>testDB</servlet-name>
-        <url-pattern>/testDB</url-pattern>
-    </servlet-mapping>
-
     <servlet-mapping>
         <servlet-name>addUser</servlet-name>
         <url-pattern>/addUser</url-pattern>
