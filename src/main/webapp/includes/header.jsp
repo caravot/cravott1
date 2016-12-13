@@ -47,6 +47,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/user/users.jsp"><i class="fa fa-users" aria-hidden="true"></i> User List</a></li>
+                <li><a href="/admin/users.jsp"><i class="fa fa-lock" aria-hidden="true"></i> Admin</a></li>
                 <li class="dropdown">
                     <%-- user is logged in --%>
                     <% if (loggedIn) { %>

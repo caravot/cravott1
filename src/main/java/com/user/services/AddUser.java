@@ -15,6 +15,13 @@ import java.sql.SQLException;
 import java.sql.*;
 
 public class AddUser extends HttpServlet {
+    /**
+     * Get post method actions from servlet
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(
             HttpServletRequest request,
             HttpServletResponse response)
@@ -110,7 +117,13 @@ public class AddUser extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    // forward all requests to the post method above
+    /**
+     * Forward all HTTP GET to POST method
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doGet(
             HttpServletRequest request,
             HttpServletResponse response)

@@ -1,6 +1,5 @@
 <%@include file="includes/header.jsp" %>
 
-
 <div class="jumbotron">
     <div class="container text-center">
         <h1>
@@ -21,22 +20,5 @@
         </form>
     </div>
 </div>
-    <%--<div class="row">--%>
-        <%--<div class="col-md-12">--%>
-            <%--<h3>Admin</h3>--%>
-            <%--<ul>--%>
-                <%--<li><a href="/admin/users.jsp">User List</a></li>--%>
-                <%--<li><a href="/admin/addUser.jsp">Add User</a></li>--%>
-            <%--</ul>--%>
-            <%--<h3>Beer</h3>--%>
-            <%--<ul>--%>
-                <%--<li><a href="/beer/beers.jsp">Beers</a></li>--%>
-            <%--</ul>--%>
-            <%--<h3>Recipes</h3>--%>
-            <%--<ul>--%>
-                <%--<li><a href="/food/recipes.jsp">Recipes</a></li>--%>
-            <%--</ul>--%>
-        <%--</div>--%>
-    <%--</div>--%>
 
 <%@include file="includes/footer.jsp" %>

@@ -19,7 +19,13 @@ import java.util.ArrayList;
  * Created by carrie on 12/11/16.
  */
 public class GetUsers extends HttpServlet {
+    /**
+     * Get user by given name
+     * @param name
+     * @return
+     */
     public static User getUserByName(String name) {
+        // create default user to return
         User user = null;
 
         try {
@@ -28,11 +34,13 @@ public class GetUsers extends HttpServlet {
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
+            // execute SQL statement
             String sql = "SELECT * FROM person WHERE name = '" + name + "'";
 
             // execute SQL statement
             ResultSet rs = statement.executeQuery(sql);
 
+            // loop over return
             while (rs.next()) {
                 user = new User(
                         rs.getString("name"),
@@ -40,6 +48,8 @@ public class GetUsers extends HttpServlet {
                         rs.getString("twitter"),
                         rs.getString("description")
                 );
+
+                // manually add the userid
                 user.setId(rs.getInt("id"));
             }
         } catch (SQLException e) {
@@ -51,7 +61,13 @@ public class GetUsers extends HttpServlet {
         return user;
     }
 
+    /**
+     * Get user by given ID
+     * @param id
+     * @return User
+     */
     public static User getUserById(String id) {
+        // create default user to return
         User user = null;
 
         try {
@@ -63,6 +79,7 @@ public class GetUsers extends HttpServlet {
             // execute SQL statement
             ResultSet rs = statement.executeQuery("SELECT * FROM person WHERE id = " + id);
 
+            // loop over return
             while (rs.next()) {
                 user = new User(
                         rs.getString("name"),
@@ -70,6 +87,8 @@ public class GetUsers extends HttpServlet {
                         rs.getString("twitter"),
                         rs.getString("description")
                 );
+
+                // manually add the userid
                 user.setId(rs.getInt("id"));
             }
         } catch (SQLException e) {

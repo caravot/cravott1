@@ -11,6 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Login extends HttpServlet {
+    /**
+     * Process post to Login servlet
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(
             HttpServletRequest request,
             HttpServletResponse response)
@@ -61,6 +68,13 @@ public class Login extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Forward all HTTP GET to POST method
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doGet(
             HttpServletRequest request,
             HttpServletResponse response)

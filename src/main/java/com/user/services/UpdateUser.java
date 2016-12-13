@@ -16,6 +16,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class UpdateUser extends HttpServlet {
+    /**
+     * Get post method actions from servlet
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doPost(
             HttpServletRequest request,
             HttpServletResponse response)
@@ -30,9 +37,11 @@ public class UpdateUser extends HttpServlet {
 
         // get the variable of where we came from so we redirect correctly
         String page = request.getParameter("page");
-        System.out.println("Page: " + page);
 
+        // Hold variable for user object
         User user = null;
+
+        // redirect url
         String url = "/";
 
         try {
@@ -41,26 +50,29 @@ public class UpdateUser extends HttpServlet {
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);
 
+            // create update statement for database
             String sql = "UPDATE person SET ";
             sql += "name = '" + name + "', ";
             sql += "twitter = '" + twitter + "', ";
             sql += "description = '" + description + "', ";
             sql += "email = '" + email + "' ";
             sql += "WHERE id = " + id;
-            System.out.println("com.user.services.updateuser:sql=" + sql);
+
             // execute SQL statement
             statement.executeUpdate(sql);
 
             // get inserted user
             user = GetUsers.getUserById(id);
 
+            // redirect back to teh profile page if that's where they came from
             if ("profile".equals(page)) {
                 url = "/user/profile.jsp";
 
                 // update session variable
-                System.out.println(user.getName());
                 request.getSession().setAttribute("user", user);
-            } else {
+            }
+            // if they didn't update form the user page redirect to admin update page
+            else {
                 url = "/admin/addUser.jsp";
             }
 
@@ -74,6 +86,13 @@ public class UpdateUser extends HttpServlet {
         }
     }
 
+    /**
+     * Forward all HTTP GET to POST method
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public void doGet(
             HttpServletRequest request,
             HttpServletResponse response)

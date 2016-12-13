@@ -8,23 +8,22 @@
 <%
     // get attributes from the request
     ArrayList<User> userList = GetUsers.getAllusers();
-
 %>
 
 <div class="container">
-    <div align="center">
-        <h1>Get User List</h1>
+    <div>
+        <h1>User List</h1>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-bordered">
+            <table class="table table-striped table-hover table-condensed">
                 <thead>
                 <tr>
-                    <td>Name</td>
-                    <td>Email</td>
-                    <td>Twitter</td>
-                    <td>Description</td>
-                    <td>&nbsp;</td>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Twitter</th>
+                    <th>Description</th>
+                    <th>Delete</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,14 +34,20 @@
                 %>
                 <tr>
                     <td>
-                        <a href="../admin/addUser.jsp?id=<%= user.getId() %>"><%= user.getName() %>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <%= user.getName() %>
+                    </td>
+                    <td>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <a href="<%= user.getEmail() %>" title="Send Email">
+                            <%= user.getEmail() %>
                         </a>
                     </td>
                     <td>
-                        <%= user.getEmail() %>
-                    </td>
-                    <td>
-                        <%= user.getTwitter() %>
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                        <a href="https://twitter.com/<%= user.getTwitter() %>" target="_blank" title="Twitter Account">
+                            <%= user.getTwitter() %>
+                        </a>
                     </td>
                     <td>
                         <%= user.getDescription() %>
@@ -59,3 +64,6 @@
 </div>
 
 <%@include file="../includes/footer.jsp" %>
+
+
+
