@@ -6,11 +6,11 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     // com.user variables
-    private Integer id;
-    private String name;
-    private String email;
-    private String twitter;
-    private String description;
+    private Integer id = 0;
+    private String name = "";
+    private String email = "";
+    private String twitter = "";
+    private String description = "";
 
     public User() {
     }

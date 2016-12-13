@@ -1,3 +1,17 @@
+
+<%@ page import="com.user.model.User" %>
+
+<%
+    // get attributes from the request
+    User sessionUser = (User)request.getSession().getAttribute("user");
+    boolean loggedIn = false;
+
+    // create default user
+    if (sessionUser != null && sessionUser.getName() != null) {
+        loggedIn = true;
+    }
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +42,14 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/user/signup.jsp">Signup</a></li>
+                <% if (loggedIn) { %>
+                    <li><a href="/user/profile.jsp">Profile</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } %>
+                <% if (!loggedIn) { %>
+                    <li><a href="/user/signup.jsp">Signup</a></li>
+                    <li><a href="/user/login.jsp">Login</a></li>
+                <% } %>
                 <li><a href="/">Home</a></li>
             </ul>
         </div>

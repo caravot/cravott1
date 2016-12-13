@@ -11,15 +11,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by carrie on 12/12/16.
- */
+
 public class Utils {
     public static void main(String[] args) {
         Beer beer = new Beer("Carries best", "lkjei");
         beer.setFoodPairings("Chili, spicy curry chicken, creamy blue cheese");
 
         ArrayList<String> result = createRecipeLinksFromBeer(beer);
+    }
+
+    public static boolean validInputString(String s) {
+        boolean result = true;
+
+        if (s == null || s.length() == 0) {
+            result = false;
+        }
+
+        return result;
     }
 
     public static InputStream openConnection(String url) throws IOException {

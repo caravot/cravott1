@@ -2,6 +2,7 @@ package com.user.services;
 
 import com.database.DatabaseSQLite;
 import com.user.model.User;
+import com.Utils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,54 +20,97 @@ public class AddUser extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
+        // remove any existing session objects
+        request.removeAttribute("user");
+        request.removeAttribute("errorMessage");
+
+        // redirect url
+        String url = "/";
+
+        //User user = new User(name, email, twitter, description);
+        Connection connection = null;
+
         // get parameters from the request
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String twitter = request.getParameter("twitter");
         String description = request.getParameter("description");
 
-        //User user = new User(name, email, twitter, description);
-        Connection connection = null;
+        // string to hold the error message
+        String errorMessage = "";
 
-        // redirect url
-        String url = "/user/profile.jsp";
+        // Create new user
+        User user = new User(name, email);
 
-        try {
-            // create a database connection and prepare statement
-            connection = DatabaseSQLite.getConnection();
-            Statement statement = connection.createStatement();
-            statement.setQueryTimeout(30);
+        // verify that the required forms are valid
+        if (!Utils.validInputString(name) || !Utils.validInputString(email)) {
+            errorMessage = "You must provide a name and email address";
 
-            // create insert statement for database
-            String sql = "INSERT INTO person VALUES(";
-            sql += "null, ";
-            sql += "'" + name + "', ";
-            sql += "'" + email + "', ";
-            sql += "'" + twitter + "', ";
-            sql += "'" + description + "' ";
-            sql += ")";
+            url = "/user/signup.jsp";
+        } else {
+            // check if the username already exists
+            User result = GetUsers.getUserByName(name);
 
-            // execute SQL statement
-            statement.executeUpdate(sql);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            DatabaseSQLite.closeConnection(connection);
+            // if the id is not null a user was found; send error
+            if (result != null) {
+                errorMessage = "The username '" + name + "' has already been taken.";
+
+                url = "/user/signup.jsp";
+            }
         }
 
-        // get inserted user
-        User user = GetUsers.getUserByName(name);
+        // continue to create a new user if no errors encountered
+        if (errorMessage.equals("")) {
+            try {
+                // create a database connection and prepare statement
+                connection = DatabaseSQLite.getConnection();
+                Statement statement = connection.createStatement();
+                statement.setQueryTimeout(30);
+
+                // create insert statement for database
+                String sql = "INSERT INTO person VALUES(";
+                sql += "null, ";
+                sql += "'" + name + "', ";
+                sql += "'" + email + "', ";
+                sql += "'" + twitter + "', ";
+                sql += "'" + description + "' ";
+                sql += ")";
+
+                // execute SQL statement
+                statement.executeUpdate(sql);
+
+                // get inserted user
+                user = GetUsers.getUserByName(name);
+
+                // store the user object in the session
+                request.getSession().setAttribute("user", user);
+
+                // will redirect the user to profile page
+                url = "/user/profile.jsp";
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // close database connection
+        DatabaseSQLite.closeConnection(connection);
 
         // store the user object in the session
-        request.getSession().setAttribute("user", user);
+        request.setAttribute("user", user);
+
+        // store the error message
+        request.setAttribute("errorMessage", errorMessage);
+
+        System.out.print("errorMessage: " + errorMessage);
 
         // forward request and response to the view
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
         dispatcher.forward(request, response);
     }
 
+    // forward all requests to the post method above
     public void doGet(
             HttpServletRequest request,
             HttpServletResponse response)
