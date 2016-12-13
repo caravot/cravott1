@@ -42,6 +42,7 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="/user/users.jsp">Users</a></li>
                 <% if (loggedIn) { %>
                     <li><a href="/user/profile.jsp">Profile</a></li>
                     <li><a href="/logout">Logout</a></li>
