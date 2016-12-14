@@ -43,7 +43,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            View the Recipe at <a href="<%= source.getSourceSiteUrl() %>"><%= source.getSourceDisplayName() %></a>
+            View the Recipe at <a href="<%= source.getSourceRecipeUrl() %>"><%= source.getSourceDisplayName() %></a>
         </div>
     </div>
 </div>
