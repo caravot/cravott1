@@ -46,20 +46,6 @@ CREATE TABLE users
 
 # Installation
 
-Tomcat Setup:
-
-* Save the *sqlite-jdbc-3.15.1.jar* to *<TOMCAT_HOME>\lib\*
-* Edit the *<TOMCAT_SERVER>\conf\server.xml* to include the following
-
-```
-<Realm className="org.apache.catalina.realm.JDBCRealm"
-            name="Realm MyDomain"
-            driverName="org.sqlite.JDBC"
-            connectionURL="jdbc:sqlite:/FULL/PATH/TO/PROJECT/db/test.db"
-            userTable="users" userNameCol="user_name" userCredCol="user_pass"
-            userRoleTable="user_roles" roleNameCol="role_name" />
-```
-
 * Run `mvn clean install`
 * Move war to <TOMCAT_HOME>\weapps\ or deploy another way.
 * Visit http://localhost:8080/

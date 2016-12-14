@@ -72,8 +72,11 @@
     </security-constraint>
 
     <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>Admin Login</realm-name>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/admin/login.jsp</form-login-page>
+            <form-error-page>/error.jsp</form-error-page>
+        </form-login-config>
     </login-config>
 
     <!-- Security roles referenced by this web application -->
