@@ -21,6 +21,29 @@ This software system is being developed as a project required towards fulfillmen
 
 # Database DDL
 
+```
+CREATE TABLE person
+(
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    email TEXT,
+    twitter TEXT,
+    description TEXT
+);
+CREATE UNIQUE INDEX person_name_uindex ON person (name);
+CREATE TABLE user_roles
+(
+    user_name TEXT NOT NULL,
+    role_name TEXT NOT NULL,
+    PRIMARY KEY (user_name, role_name)
+);
+CREATE TABLE users
+(
+    user_name TEXT PRIMARY KEY NOT NULL,
+    user_pass TEXT NOT NULL
+);
+```
+
 # Installation
 
 Tomcat Setup:
