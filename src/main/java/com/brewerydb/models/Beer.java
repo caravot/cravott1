@@ -94,7 +94,7 @@ public class Beer {
     }
 
     public List<String> getFoodPairingsAsList() {
-        List<String> foodList = Arrays.asList(this.foodPairings.split(", "));
+        List<String> foodList = Arrays.asList(this.foodPairings.split("\\s|,|;|:"));
         return foodList;
     }
 }
