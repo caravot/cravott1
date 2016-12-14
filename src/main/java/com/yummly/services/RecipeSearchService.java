@@ -12,7 +12,6 @@ import okhttp3.HttpUrl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 public class RecipeSearchService {
     /**
